@@ -2,7 +2,7 @@
 // When deploying to Netlify, this ensures the frontend talks to your Render server.
 // Replace the Render URL with your actual deployed Render server URL.
 const IS_LOCAL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-const API_BASE = IS_LOCAL ? 'http://localhost:8080' : 'https://your-custom-api.onrender.com'; // ⬅️ Replace this with your actual Render URL!
+const API_BASE = IS_LOCAL ? 'http://localhost:8080' : 'https://bus-ticket-booker.onrender.com'; // ⬅️ Replace this with your actual Render URL!
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Booking Form Logic ---

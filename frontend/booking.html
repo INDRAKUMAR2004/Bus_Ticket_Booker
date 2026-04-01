@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ticket | LuxeTravel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="booking-grid">
+    <div class="blob-c blob-1 sm"></div>
+    <div class="blob-c blob-2 lg"></div>
+
+    <nav class="navbar static">
+        <a href="./index.html" class="logo">LuxeTravel</a>
+    </nav>
+
+    <div class="container split-screen">
+        <!-- Form Section -->
+        <section class="form-section">
+            <h2 class="title">Secure Your Seat</h2>
+            <p class="subtitle">Complete the details below to complete your reservation.</p>
+            
+            <form id="booking-form" class="glass-form">
+                <div class="input-group">
+                    <input type="text" id="name" required placeholder=" ">
+                    <label>Passenger Name</label>
+                </div>
+                
+                <div class="input-group">
+                    <input type="tel" id="phone" pattern="[0-9]{10}" required placeholder=" ">
+                    <label>Phone Number</label>
+                    <span class="error-msg">must be 10 digits</span>
+                </div>
+
+                <div class="row">
+                    <div class="input-group half">
+                        <input type="text" id="from" required placeholder=" ">
+                        <label>From</label>
+                    </div>
+                    <div class="icon-swap">⇌</div>
+                    <div class="input-group half">
+                        <input type="text" id="to" required placeholder=" ">
+                        <label>To</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-group half">
+                        <input type="date" id="date" required placeholder=" ">
+                        <label class="active-label">Date</label>
+                    </div>
+                    <div class="input-group half">
+                        <input type="number" id="seats" min="1" max="10" required placeholder=" ">
+                        <label>Seats</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Confirm Booking <span class="arrow">→</span>
+                </button>
+            </form>
+            
+            <div id="loader" class="hidden">
+                 <div class="spinner"></div> Processing...
+            </div>
+            
+            <div id="status-message"></div>
+        </section>
+
+        <!-- Preview Panel -->
+        <section class="preview-panel">
+            <div class="ticket-preview glass-card">
+                <div class="header">
+                    <h3>Preview</h3>
+                    <div class="id-stub" id="prev-id">#TBD</div>
+                </div>
+                
+                <div class="preview-details">
+                     <div class="dt-block">
+                         <span>Passenger</span>
+                         <strong id="prev-name">John Doe</strong>
+                     </div>
+                     
+                     <div class="dt-block route">
+                         <div class="loc">
+                             <span class="lbl">From</span>
+                             <strong id="prev-from">City A</strong>
+                         </div>
+                         <div class="car-ico">🚌</div>
+                         <div class="loc text-right">
+                             <span class="lbl">To</span>
+                             <strong id="prev-to">City B</strong>
+                         </div>
+                     </div>
+                     
+                     <div class="dt-bottom">
+                          <div class="dt-block">
+                              <span>Date</span>
+                              <strong id="prev-date">YYYY-MM-DD</strong>
+                          </div>
+                          <div class="dt-block text-right">
+                              <span>Seats</span>
+                              <strong id="prev-seats">1</strong>
+                          </div>
+                     </div>
+                </div>
+                
+                 <!-- Success View -->
+                 <div id="success-view" class="hidden text-center fade-in">
+                     <div class="check-circle">✓</div>
+                     <h4>Booking Confirmed!</h4>
+                     <p>Your ticket is ready.</p>
+                     <div class="actions mt-3">
+                         <button id="downloadBtn" class="btn btn-outline mr-2">Download</button>
+                         <button id="printBtn" class="btn btn-primary">Print Ticket</button>
+                     </div>
+                 </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Printable Area (Hidden normally) -->
+    <div id="print-area" class="hidden print-only">
+        <!-- Content injected by JS -->
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>

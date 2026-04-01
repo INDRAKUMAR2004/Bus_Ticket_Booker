@@ -1,0 +1,11 @@
+------------------------------
+BUS TICKET
+------------------------------
+Booking ID: T20260401210037
+Name: Dineshwar
+Phone: 7639373450
+From: Trichy
+To: Tirunelveli
+Date: 2026-04-03
+Seats: 1
+------------------------------

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: bus-booking-backend
+    runtime: native
+    buildCommand: cd backend && make && mv server ../
+    startCommand: ./server
+    envVars:
+      - key: PORT
+        fromPort: true
+    regions:
+      - oregon

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Success | LuxeTravel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        .success-page .success-container {
+            max-width: 600px;
+            margin: 60px auto;
+            text-align: center;
+            padding: 40px;
+        }
+        .check-circle {
+            width: 80px;
+            height: 80px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            text-shadow: 0 0 10px rgba(16,185,129,0.5);
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .ticket-info pre {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-top: 20px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-area, #print-area * {
+                visibility: visible;
+            }
+            #print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                color: black;
+            }
+            #print-area pre {
+                color: black !important;
+                background: white !important;
+                border: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="success-page">
+    <div class="blob-c blob-1"></div>
+    <div class="blob-c blob-2"></div>
+
+    <nav class="navbar static">
+        <a href="./index.html" class="logo">LuxeTravel</a>
+    </nav>
+
+    <div class="container">
+        <div class="success-container glass-card">
+            <div class="check-circle">✓</div>
+            <h2 class="title">Booking Confirmed!</h2>
+            <p class="subtitle mt-2">Your journey has been secured successfully.</p>
+            
+            <div id="ticket-info" class="ticket-info text-left">
+                <!-- dynamic ticket text -->
+                <p>Loading ticket details...</p>
+            </div>
+
+            <div class="action-buttons">
+                <button id="downloadBtn" class="btn btn-primary">Download Pass</button>
+                <button id="printBtn" class="btn btn-outline">Print Ticket</button>
+            </div>
+            
+            <div class="mt-4" style="margin-top: 30px;">
+                <a href="./index.html" style="color: var(--accent); text-decoration: none; font-weight: 500;">← Return to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Printable Area -->
+    <div id="print-area" class="print-only"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ticketData = sessionStorage.getItem('finalTicket');
+            const info = document.getElementById('ticket-info');
+            const printArea = document.getElementById('print-area');
+            
+            if (ticketData) {
+                const formattedContent = `<pre>${ticketData}</pre>`;
+                info.innerHTML = formattedContent;
+                printArea.innerHTML = formattedContent;
+                
+                document.getElementById('downloadBtn').addEventListener('click', () => {
+                     const blob = new Blob([ticketData], { type: 'text/plain' });
+                     const url = window.URL.createObjectURL(blob);
+                     const a = document.createElement('a');
+                     a.href = url;
+                     // Extract ID for filename if possible
+                     const idMatch = ticketData.match(/Booking ID:\s*(T\d+)/);
+                     const id = idMatch ? idMatch[1] : 'Unknown';
+                     
+                     a.download = `LuxeTravel_Ticket_${id}.txt`;
+                     document.body.appendChild(a);
+                     a.click();
+                     window.URL.revokeObjectURL(url);
+                });
+
+                document.getElementById('printBtn').addEventListener('click', () => {
+                    window.print();
+                });
+            } else {
+                info.innerHTML = "<p style='color:var(--err)'>No recent ticket found. Did you book a trip directly?</p>";
+                document.getElementById('downloadBtn').style.display = 'none';
+                document.getElementById('printBtn').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
